@@ -34,12 +34,18 @@ def singleton(class_):
 
 @singleton
 class vpsnetAuth():
+    """
+    Singleton class for keep auth
+    """
     def __init__(self, username, password):
         self.username = username
         self.password = password
 
 
 class vpsnetError(Exception):
+    """
+    Class for printing errors.
+    """
     def __init__(self, value):
         self.value = value
     def __str__(self):
@@ -47,49 +53,96 @@ class vpsnetError(Exception):
 
 
 class Operation():
+    """
+    Class that contain methods
+    """
     def get_cloudserevrs(self):
+        """
+        Get an list of all cloudserver assigned to account
+        :return: array of json objects with cloudserver details
+        """
         reply = self._request(name="get_all")
         return reply
 
     def get_cs_property(self, cs_id):
+        """
+        Get details of cloudserver with specific id
+        :param cs_id: ID of cloudserver assigned at control.vps.net
+        :return: json object with cloudserver details
+        """
         reply = self._request(cs_id, name="get_cs_property")
         return reply
 
     def creat(self, data=None):
+        """
+        Creta CloudServer with params specified at data dict
+        :param data: dict with CloudServer params
+        example:
+        data = {"virtual_machine": {
+                "label": label,
+                "fqdn": fqdn,
+                "system_template_id": template,
+                "cloud_id": cloud,
+                "backups_enabled": 'false',
+                "rsync_backups_enabled": 'false',
+                "slices_required": nodes
+        :return: json object with cloudserver details
+        """
         data = json.dums(data)
         reply = self._request(data=data, name="create_cs")
         return reply
 
     def shutdown(self, cs_id):
+        """
+        Shutdown cloudserver with id
+        :param cs_id:
+        :return: json object with cloudserver details
+        """
         reply = self._request(cs_id, name="shutdown_cs")
         return reply
 
     def reboot(self, cs_id):
+        """
+        Reboot cloudserver with id
+        :param cs_id:
+        :return: json object with cloudserver details
+        """
         reply = self._request(cs_id, name="reboot_cs")
         return reply
 
     def statup(self, cs_id):
+        """
+        StartUP cloudserver with id
+        :param cs_id:
+        :return: cloudserver with id
+        """
         reply = self._request(cs_id, name="starup_cs")
         return reply
 
     def poweroff(self, cs_id):
+        """
+        PowerOff cloudserver with id
+        :param cs_id:
+        :return: cloudserver with id
+        """
         reply = self._request(cs_id, name="power_off_cs")
         return reply
 
-    def rebuild(self, cs_id):
-        reply = self._request(cs_id, name="rebuild_cs")
+    def rebuild(self, cs_id, data):
+        """ Reinstall/Rebuild cloudserver with id
+        :param cs_id:
+        example
+        data = { "virtual_machine" : {"system_template_id": 4302 } }
+        :return: cloudserver with id
+        """
+        data = json.dumps(data)
+        reply = self._request(cs_id, data, name="rebuild_cs")
         return reply
-
-    def __getattr__(self, item):
-        if item in METHODS.keys():
-            print METHODS[item]
-        else:
-            raise AttributeError
 
 
     def _request(self, cs_id=None, data=False, name=None):
         """
-
+        Wrapper for requests
         :param cs_id: Id of Cloud Server
         :param data:
         :param name: name of method that is predefined in METHODS
