@@ -10,3 +10,5 @@ After it you may do API calls:
     a.reboot('cloudserver_id')
     
 
+# TODO
+Document each api call and add Nodes, IPs, Backups operation and etc. check https://control.vps.net/api/
