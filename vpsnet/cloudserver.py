@@ -1,4 +1,4 @@
-__version__ = '0.1beta'
+__version__ = '0.0.1 alpha'
 __author__ = 'zhhuta'
 
 BASE_URL = "https://api.vps.net/"
