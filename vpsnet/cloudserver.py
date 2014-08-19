@@ -37,6 +37,7 @@ class vpsnetAuth():
     """
     Singleton class for keep auth
     """
+
     def __init__(self, username, password):
         self.username = username
         self.password = password
@@ -46,16 +47,22 @@ class vpsnetError(Exception):
     """
     Class for printing errors.
     """
+
     def __init__(self, value):
         self.value = value
+
     def __str__(self):
         return repr(self.value)
 
 
 class Operation():
+    def __init__(self):
+        #todo: check if auth is set
+        pass
     """
     Class that contain methods
     """
+
     def get_cloudserevrs(self):
         """
         Get an list of all cloudserver assigned to account
@@ -88,7 +95,7 @@ class Operation():
                 "slices_required": nodes
         :return: json object with cloudserver details
         """
-        data = json.dums(data)
+        data = json.dumps(data)
         reply = self._request(data=data, name="create_cs")
         return reply
 
@@ -108,6 +115,14 @@ class Operation():
         :return: json object with cloudserver details
         """
         reply = self._request(cs_id, name="reboot_cs")
+        return reply
+    def reboot_recovery(self, cs_id):
+        """
+        Reboot cloudserver into recovery-mode with id
+        :param cs_id:
+        :return: json object with cloudserver details
+        """
+        reply = self._request(cs_id, data={'mode' : 'recovery'}, name="reboot_cs")
         return reply
 
     def statup(self, cs_id):
@@ -180,6 +195,3 @@ class Operation():
             raise ValueError("The API server doesn't respond with a valid json")
         except requests.RequestException as e:
             raise RuntimeError(e)
-
-
-
