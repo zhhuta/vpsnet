@@ -57,7 +57,7 @@ class vpsnetError(Exception):
 
 class Operation():
     def __init__(self):
-        #todo: check if auth is set
+        #todo: check if auth singlton is set
         pass
     """
     Class that contain methods
