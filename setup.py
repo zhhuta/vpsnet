@@ -14,7 +14,7 @@ setup(
     license = "BSD",
     keywords = "vps.net api python",
     url = "https://github.com/zhhuta/vpsnet",
-    packages=['an_example_pypi_project', 'tests'],
+    packages=['vpsnet', 'tests'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
