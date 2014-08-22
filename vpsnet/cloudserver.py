@@ -122,3 +122,20 @@ def edit(cs_id, data):
     :return:
     """
     return request_handler(cs_id=cs_id, name="edit_cs", data=data)
+
+
+def delete(cs_id):
+    """
+    Delete CloudServer
+    :param cs_id: CloudServer Id
+    :return:
+    """
+    return request_handler(cs_id=cs_id, name="delete_cs")
+
+def reset_root_pass(cs_id):
+    """
+    Reset root password for CloudServer
+    :param cs_id: CloudServer Id
+    :return: json with new password
+    """
+    return request_handler(cs_id=cs_id,name="cs_reset_rpass")

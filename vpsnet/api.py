@@ -13,12 +13,15 @@ METHODS = {
     "rebuild_cs": {"url": "virtual_machines/%s/rebuild.api10json", "method": "POST"},
     "rebuild_cs_net": {"url": "virtual_machines/%s/rebuild_network.api10json", "method": "POST"},
     "edit_cs": {"url": "virtual_machines/%s.api10json", "method": "PUT"},
+    "delete_cs": {"url": "virtual_machines/%s.api10json", "method": "DELETE"},
+    "cs_reset_rpass": {"url": "virtual_machines/%s/reset_password.api10json", "method": "POST"},
     "rebuild_network": {"url": "https://api.vps.net/virtual_machines/%s/rebuild_network.api10json", "method": "POST"},
     "backup_lists": {"url": "virtual_machines/%s/backups.api10json", "method": "GET"},
     "rsync_backup_info": {"url": "virtual_machines/%s/backups/rsync_backup.api10json", "method": "GET"},
     "create_template": {"url": "virtual_machines/%s/backups.api10json", "method": "POST"},
     "convert_backup2template": {"url": "virtual_machines/%s/backups/%s/convert.api10json", "method": "POST"},
-    "backup_delete": {"url": "virtual_machines/%s/backups/%s.api10json", "method": "DELETE"}
+    "backup_delete": {"url": "virtual_machines/%s/backups/%s.api10json", "method": "DELETE"},
+    "restore_from_backup": {"url": "virtual_machines/%s/backups/%s/restore.api10json", "method": "POST"}
 }
 from . import HEADERS
 
