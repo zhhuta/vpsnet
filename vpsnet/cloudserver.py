@@ -29,7 +29,7 @@ def search(statment):
     return request_handler(cs_id=statment, name="search")
 
 
-def create(data=None):
+def create(data):
     """
     Create CloudServer with params specified at data dict
     :param data: dict with CloudServer params
@@ -47,7 +47,7 @@ def create(data=None):
     return request_handler(data=data, name="create_cs")
 
 
-def create_instant(data=None):
+def create_instant(data):
     """
     Create instant cloudserver
     :param data: dict with params
