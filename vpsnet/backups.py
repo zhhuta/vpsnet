@@ -27,7 +27,7 @@ def create_template(cs_id):
     :param cs_id:
     :return:
     """
-    return request_handler(cs_id=cs_id, name="create_template")
+    return request_handler(cs_id=cs_id, name="create_template", data={"one_click": True})
 
 
 def convert2template(cs_id, backup_id):

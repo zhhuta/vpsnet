@@ -13,7 +13,7 @@ setup(
     author="Vitaliy Zhhuta",
     author_email="vitaliyz@uk2group.com",
     description="Python wraper for vps.net api ",
-    license="BSD",
+    license=("BSD","MIT"),
     keywords="vps.net api python",
     url="https://github.com/zhhuta/vpsnet",
     packages=['vpsnet', 'tests'],
