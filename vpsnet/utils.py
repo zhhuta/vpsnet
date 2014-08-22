@@ -17,7 +17,7 @@ def request_handler(handler=DEFAULT_HANDLER, cs_id=None, name=None, data=None):
         :param cs_id: Id of Cloud Server
         :param data:
         :param name: name of method that is predefined in METHODS
-        :return: json object with cloudserver details
+        :return: json object with CloudServer details
         """
     check_handler(handler)
 
