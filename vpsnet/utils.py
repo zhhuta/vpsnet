@@ -39,7 +39,7 @@ def request_handler(handler=DEFAULT_HANDLER, cs_id=None, name=None, data=None):
         reply = requests.post(url, **params)
     elif handler.method[name]['method'] is "PUT":
         reply = requests.put(url, **params)
-    elif handler.method[name]['method'] is "DELETE"
+    elif handler.method[name]['method'] is "DELETE":
         reply = requests.delete(url, **params)
     else:
         raise VpsNetError("Unsuported metod")
