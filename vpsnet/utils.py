@@ -1,7 +1,9 @@
 __author__ = 'zhhuta'
 
-import requests
 import json
+
+import requests
+
 from .exceptions import VpsNetError
 from .api import DEFAULT_HANDLER, Handler
 
@@ -19,6 +21,7 @@ def request_handler(handler=DEFAULT_HANDLER, cs_id=None, name=None, data=None):
         :param name: name of method that is predefined in METHODS
         :return: json object with CloudServer details
         """
+    print handler
     check_handler(handler)
 
     if cs_id is None:

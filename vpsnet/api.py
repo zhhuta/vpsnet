@@ -21,7 +21,10 @@ METHODS = {
     "create_template": {"url": "virtual_machines/%s/backups.api10json", "method": "POST"},
     "convert_backup2template": {"url": "virtual_machines/%s/backups/%s/convert.api10json", "method": "POST"},
     "backup_delete": {"url": "virtual_machines/%s/backups/%s.api10json", "method": "DELETE"},
-    "restore_from_backup": {"url": "virtual_machines/%s/backups/%s/restore.api10json", "method": "POST"}
+    "restore_from_backup": {"url": "virtual_machines/%s/backups/%s/restore.api10json", "method": "POST"},
+    "cloud_list": {"url": "available_clouds.api10json", "method": "GET"},
+    "template_list": {"url": "/available_templates.api10json", "method": "GET"},
+    "vpsnet_profile": {"url": "/profile.api10json", "method": "GET"}
 }
 from . import HEADERS
 
@@ -42,6 +45,5 @@ def set_default_handler(request_handler):
     if not isinstance(request_handler, Handler):
         raise TypeError(
             "Attempted to set an invalid request handler as default.")
-    print "setting DEFAULT_HANDLER"
     global DEFAULT_HANDLER
     DEFAULT_HANDLER = request_handler
