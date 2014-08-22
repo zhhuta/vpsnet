@@ -9,15 +9,7 @@ After it you may do API calls:
     from vpsnet import cloudserver as cs
     sc.reboot('cloudserver_id')
 
-
-##Get a list fo CloudServers  
-
-[`cs.get_cloudservers()`](https://control.vps.net/api/#vm_list)
-
-##Edit CloudServer 
+For help use
     
-[`cs.edit(cloudserver_id,data)`](https://control.vps.net/api/#vm_edit)
+    help(cs)
 
-
-# TODO
-Document each api call and add Nodes, IPs, Backups operation and etc. check https://control.vps.net/api/
