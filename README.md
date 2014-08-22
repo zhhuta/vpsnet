@@ -10,11 +10,11 @@ After it you may do API calls:
     sc.reboot('cloudserver_id')
 
 
-Get a list fo CloudServers  
+##Get a list fo CloudServers  
 
-[`cs.get_cloudservers`](https://control.vps.net/api/#vm_list)
+[`cs.get_cloudservers()`](https://control.vps.net/api/#vm_list)
 
-Edit CloudServer 
+##Edit CloudServer 
     
 [`cs.edit(cloudserver_id,data)`](https://control.vps.net/api/#vm_edit)
 
