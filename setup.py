@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name="vpsnet",
-    version="0.0.1",
+    version="0.0.2",
     author="Vitaliy Zhhuta",
     author_email="vitaliyz@uk2group.com",
     description="Python wraper for vps.net api ",
