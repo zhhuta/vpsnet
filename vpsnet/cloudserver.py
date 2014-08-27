@@ -130,7 +130,7 @@ def delete(cs_id):
     :param cs_id: CloudServer Id
     :return:
     """
-    return vpsnet.utils.request_handler(cs_id=cs_id, name="delete_cs")
+    vpsnet.utils.request_handler(cs_id=cs_id, name="delete_cs")
 
 
 def reset_root_pass(cs_id):
