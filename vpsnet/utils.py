@@ -27,7 +27,7 @@ def request_handler(handler=vpsnet.api.DEFAULT_HANDLER, cs_id=None, name=None, d
         :param name: name of method that is predefined in METHODS
         :return: json object with CloudServer details
         """
-    print handler
+    #print handler
     check_handler(handler)
 
     if cs_id is None:
