@@ -1,31 +1,23 @@
-# DevOps approache with vps.net public clouds
+# DevOps approach with vps.net public clouds
 ## Proof of Concept
 ### Intro
 
- "My God, it's full of stars!"
+ "The possibilities are endless"
  
-Yes, internet is full of articles how to deploy environment with
-Amazon EC2, RackSpace, DigitalOcean and etc.  In this article you will
-find how to deploy environment with [VPS.NET](https://vps.net
+As we all know there are many different IaaS providers out there, and there are many different ways to deploy your infrastructure with them. In this article we will explain one way to deploy your infrastructure with [VPS.NET](https://vps.net
 "vps.net").
 
-The most obvious method to create bunch of servers that suppose to
-have different roles is WEB-GUI.  You chose number of nodes(decide how
-mach cpu, ram and storage will have each server), location where this
-server will be built, template(Operation System: generally Linux). What
-if you would like to do this with on click(one command), without
-WEB-GUI? You should look [here](https://control.vps.net/api/ "VPS.NET
+Let's say your ready to deploy your environment, you need multiple servers with different Operating Systems in different geographic locations. The most obvious method to accomplish this task is simply logging into the VPS.NET control panel and deploying your servers. But what if you are like me and want to accomplish this with a single click? Perhaps you want to integrate this rollout in your own scripts? Good news, you can!  Check out the VPS.NET API[here](https://control.vps.net/api/ "VPS.NET
 RESTful API")
 
-Another question how, as [here](https://control.vps.net/api/ "VPS.NET
-RESTful API") contains description of api calls that should be send to
-https://api.vps.net.
-For this purpouse article has been written.
+Okay, now you know where to look, it's time to talk about how.  For a description of the available API calls check this out [here](https://control.vps.net/api/ "VPS.NET
+RESTful API"). 
+
+To help clarify things a little more - our amazing DevOps team has created there own script to help point you in the right direction.
 
 ## Python and vps.net API
 
-We going to use Python as language for our scripts. We should also
-install some frameworks(Python Libs)
+We are going to use Python as language for our scripts. First thing we need to do is install the required frameworks (Python Libs)
 
 	$sudo pip install configobj requests sqlalchemy json
 
@@ -36,9 +28,10 @@ We use:
 * `sqlalchemy` to store some data into SQLite DB
 * `json` to operate with data in json format
 
-Lest start from small example. Hope you already have had account on
-vps.net. we going to write small python-scrips to check your profile
-on vps.net:
+Lest start with a small example. Please be aware, we are assuming you already have had account on
+vps.net. 
+
+Let's write a small python script to check out your profile.
 
 	#!/usr/bin/env python
 	import requests
@@ -60,8 +53,8 @@ on vps.net:
 	if __name__ == '__main__':
 		main()
 
-The rusult of running this program should be next:
 
+Below is the results you should get when running this script:
 	
 	{
 	  "user": {
@@ -88,21 +81,21 @@ The rusult of running this program should be next:
 		}
 	}
 
-I have specially changed my own information to John Galt :)
 
-If credentials are not valid and server won't replie with HTTP 200 we get exception
+If credentials are invalid we'll get the following exception.
 
 	requests.exceptions.HTTPError: 404 Client Error: Not Found
 
-Hope we entered correct credentials
+If you see this - check your credentials! :) 
 
-Let's figure out what do this program step by spep
 
-1. First we expect that you enter you email and api_key
+Okay - let's go through this script, step by step:
+
+1. First you will enter you email and api_key
 
 	`raw_input()` & `getpass.getpass()`
 	
-2. Next we build HTTP GET request to api.vps.net
+2. Next we build the HTTP GET request to api.vps.net
 
     `r = requests.get(url,auth,headers,varify)`
 
@@ -113,15 +106,11 @@ Where:
  * `headers= {"Accept": "application/json", "Content-type": "application/json"}`
  * `varify=False`
 
-After we get replie form `api.vps.net` we check if `r.status_code`
-equal to `requests.codes.ok`, if not we riese exception
+After we get a reply from `api.vps.net` we check if `r.status_code` is equal to `requests.codes.ok`, if not we raise an exception
 
-As soon as we go forward we going to modify our script and add more
-functions to it. Now lets store our credentials in config file for
-future use.
-## Storing Credentials
-First we should add global variale `cred_file = 'credentilas.cfg'` and
-write new function `store_credentials`
+Going forward we are going to add more functionality to our script.  To make our life easy let's store our credentials in a config file for future use. 
+
+First we should add global variable `cred_file = 'credentilas.cfg'` and write a new function `store_credentials`
 
 	def store_credentials(email,api_key):
 	        config_cred = ConfigObj()
@@ -135,35 +124,29 @@ write new function `store_credentials`
 			return config_cred
 
 
-Also add this function into our main function
+Also add this into our main function
 
 	cred = store_credentials(email,api_key)
 
-in our IF statetment, we want store credentials only if they are valid.
+In our IF statement, we'll want store credentials only if they are valid.
 
-Now we should switch to more complicated task: build infrastructure on
-one of vps.net public cloud. For stater, we should decide how our
-infra should look.
-## Infrastructure
+Now, let's get into a bit more complicated of a task. Let's look at how to build some infrastructure servers on
+one of vps.net public clouds. First things first, let's decide what our infrastructure should look like. 
+
+Okay, let's say we need to deploy an application, this application needs a web server, a database server, an SVN server and a monitoring server.  
 Lets imagine that we have to deploy some application that's need Web
-server, DB server also we need some SVN sever and monitoring.  In real
-world we need servers for Continues Integration(Jenkins), test
-environment and etc.
+server, DB server also we need some SVN sever and a to make things nice and tidy we want a continuous integration server (Jenkins).
 
-So we going to build:
+So to accomplish this we are going to build:
 
-* web server: Tomcat 2 Nodes
-* db server: MySQL 2 Nodes
-* svn server: git 1 Node
-* CI server: jenkins 2 Node
+* 1 x Web Server: Tomcat 2 Nodes
+* 1 x DB Server: MySQL 2 Nodes
+* 1 x SVN Server: git 1 Node
+* 1 x CI Server: jenkins 2 Node
 
-In total it is 4 servers with different configuration. As a best
-pracitse we should use the same OS for all this servers, let's say:
-Centos 6.4 x64
+So we're going to create 4 servers, all with different configurations.  But to keep things a little organized we're going to use the same OS - in this example we'll use CentOS 6.4 x64.
 
-## Storing infra config
-
-Now we going to write function add will create `infra.cfg` file and base on thie file we will build Virtual Servers.
+Okay, first step is writing function to create a `infra.cfg` file this file will describe the infrastructure we want to build. 
 
 
 Add global variable `infr_file = 'infra.cfg'` and write next function `create_infr`
@@ -197,7 +180,7 @@ Add global variable `infr_file = 'infra.cfg'` and write next function `create_in
 Call this function at the end of main function:
 	cred = create_infr()
 
-If we ran the script we get two files `credentials.cfg` and `infra.cfg`. Config for infra would looks next:
+If we ran the script we get two files `credentials.cfg` and `infra.cfg`. The infra.cfg file would look something like:
 
 	...
 	[app]
@@ -207,15 +190,14 @@ If we ran the script we get two files `credentials.cfg` and `infra.cfg`. Config 
 	quantity = 2
 	...
 
-Explanation:
+Okay - let's explain the above config file 'snippet':
 
-We have group called `[app]` where will be 2 servers with labels `web01`
-and `web02`, each server will be build with 2 Nodes and have hostname
-`web01.zhhuta.tld` and `web02.zhhuta.tld`
+We have group called `[app]` with 2 servers `[quantity = 2]` with labels `web01` and `web02`, each of these servers will be build with 2 Nodes `[nodes=2]` and have hostname
+`web01.zhhuta.tld` and `web02.zhhuta.tld` `fqdn = zhhuta.tld`.
 
-It's not enough to build our ifra, we have to decide on witch cloud we goig to build and chose base tamplate.
-## Geting Clouds from api.vps.net
-Next step we going to retrieve the list of vps.net clouds and check on what cloud we can build infra.
+Okay - we have a decription of what we're going to build, now let's work out the 'where' and 'how' we are going to accomplish these builds.
+
+Next step we going to retrieve the list of vps.net clouds and check which clouds we can build our infrastructure on.
 
 	def get_clouds(config_cred):
 		""" Fucntion get full list of clouds and retunr dict of cloud namd and id """
@@ -237,8 +219,7 @@ and add `get_cloud` into `main`
 
 	clouds = get_couds(cred)
 
-## Getting templates
-Now we need tamlates ids on vps.net cloud.
+Okay - now we need to get all the available templates on each of those clouds.
 
 	def get_templates(config_cred,clouds):
 		""" Function that get a list of all existing templates on each cloud
@@ -263,7 +244,7 @@ Now we need tamlates ids on vps.net cloud.
 		return cloud, template
 
 
-This function will parse dict of templates and print cloud and template id on that cloud. This params we will user for building VMs on specified clouds. Lets attache this prarams to our `infra.cfg`
+This function will parse a description of each template and print out the cloud and template ids. We will then use that info for building our VMs. Lets add this info to our `infra.cfg` file:
 
 	def modify_infra_cfg(config_infr,cloud,template):
 		"""Function that first modifi config_infr and add cloud id and template id to each server groups"""
@@ -274,7 +255,7 @@ This function will parse dict of templates and print cloud and template id on th
 		config_infr.write()
 		return config_infr
 
-`infra.cfg` should looks next:
+`infra.cfg` should now look like:
 	...
 	[app]
 	label = web
@@ -285,9 +266,8 @@ This function will parse dict of templates and print cloud and template id on th
 	template = 4302
 	...
 
-We are almost ready to build infra we have all variable to do it, but we need to store IP address of newly created VMs and their passwords. For this we going to create sqlite db.
+Okay - we're almost ready! We have all our variables but we need to think about storing details of each VM after it's creation. To help accomplish this we going to create an sqlite db.
 
-## Sqlite Inint
 
 	def init_db():
 		"""Creating DB """
@@ -307,7 +287,7 @@ add to main
 
 	vms_db = init_db()
 
-##Time to build VMs
+Okay - it's time to build our VMs!
 
 	def buil_vm(config_cred,label,fqdn,template,cloud,nodes,vms_db):
 		""" Build VM """
@@ -341,7 +321,7 @@ add to main
 		return vm['virtual_machine']['label'], vm['virtual_machine']['primary_ip_address']['ip_address']['ip_address']
 
 
-##Now infra time
+Infrastructue creation time!
 
 	def build_infra(config_cred,config_infr,vms_db):
 		"""Parse configs and build vms """
@@ -386,9 +366,7 @@ add to main
 
 	build_infra(cred,infr,vms_db)
 
-After all our main function should looks next
-
-## Main
+After all of this our main function should looks like:
 
 	def main():
 		email = raw_input("Enter your email that you use with vps.net:")
@@ -409,18 +387,19 @@ After all our main function should looks next
 		vms_db = init_db()
 		build_infra(cred,infr,vms_db)
 
-Script will create next files:
+So our script will create the following files:
 
- * `credentilas.cfg` contain credentails to api.vps.net
- * `infra.cfg` contain informaont aobut infrastructure
- * `infra.db` containe dst id, ip address, password of vms
- * `hosts` containe IP_ADDRESS HOSTNAME record of out infra servers
- * `servers.txt` containe sorted infromatin about servers and groups, servers belongs.
-
-As last step we should distribute our ssh public keys over servers. We going to automate this task too.
+ * `credentilas.cfg` This contains credentails to api.vps.net
+ * `infra.cfg` This contains information about our infrastructure
+ * `infra.db` This contains the dst id, ip address, password of vms
+ * `hosts` This contains the IP_ADDRESS HOSTNAME record of our infra servers
+ * `servers.txt` This contains sorted information about our servers.
 
 
+One last step - you probably want to distribute your public SSH keys across your infrastructure.
 
+
+Now check new version of vps.net.py where we use vpsnet python module.
 
 +++++++++++++++++++++
 
