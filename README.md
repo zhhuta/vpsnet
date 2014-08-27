@@ -12,4 +12,8 @@ After it you may do API calls:
 For help use
     
     help(cs)
+    
+# How vps.net.py works
+
+Please read to understand [how vps.net.py](vps.net.md) works.
 

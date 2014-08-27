@@ -185,15 +185,13 @@ def main():
     email = raw_input("Enter your email that you use with vps.net:")
     api_key = getpass.getpass("Enter your api key:")  # ## key you may find on control.vps.net "profile"
     vpsnet.init(email, api_key)
-    print "DEFAULT_HANDLER:", vpsnet.api.DEFAULT_HANDLER
-    cloudserver.get_cs_property('131093')
     cred = store_credentials(email, api_key)
     prof = profile.get()
     print json.dumps(prof, sort_keys=True, indent=2)
     infr = create_infr()
     vps_clouds = get_clouds()
     # noinspection PyArgumentList
-    cloud, templ = get_templates(cred, vps_clouds)
+    cloud, templ = get_templates( vps_clouds)
     infr = modify_infra_cfg(infr, cloud, templ)
     vms_db = init_db()
     build_infra(cred, infr, vms_db)
