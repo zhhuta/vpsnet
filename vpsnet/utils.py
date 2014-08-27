@@ -1,19 +1,25 @@
+from vpsnet import api
+
 __author__ = 'zhhuta'
 
 import json
 
 import requests
 
+
 from .exceptions import VpsNetError
-from .api import DEFAULT_HANDLER, Handler
+import vpsnet.api
+
 
 
 def check_handler(handler):
-    if not isinstance(handler, Handler):
+    if not isinstance(handler, vpsnet.api.Handler):
         raise VpsNetError("No credentials set. Please set credentials vpsnet.init('email','password')")
 
 
-def request_handler(handler=DEFAULT_HANDLER, cs_id=None, name=None, data=None):
+
+
+def request_handler(handler=vpsnet.api.DEFAULT_HANDLER, cs_id=None, name=None, data=None):
     """
         Wrapper for requests
         :param cs_id: Id of Cloud Server

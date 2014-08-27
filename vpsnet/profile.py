@@ -1,11 +1,16 @@
 __author__ = 'zhhuta'
 
-from .utils import request_handler
+import vpsnet.utils
+#from .utils import request_handler
+#from imp import reload
+
+
 
 
 def get():
+    #reload(vpsnet.utils)
     """
 
     :return:
     """
-    return request_handler(name="vpsnet_profile")
+    return vpsnet.utils.request_handler(name="vpsnet_profile")

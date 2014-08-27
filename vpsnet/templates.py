@@ -1,11 +1,11 @@
 __author__ = 'zhhuta'
 
-from .utils import request_handler
-
+#from .utils import request_handler
+import vpsnet.utils
 
 def get_list():
     """
 
     :return:
     """
-    return request_handler(name="template_list")
+    return vpsnet.utils.request_handler(name="template_list")

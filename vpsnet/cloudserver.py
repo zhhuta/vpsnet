@@ -1,14 +1,14 @@
 __author__ = 'zhhuta'
 
-from .utils import request_handler
-
+#from .utils import vpsnet.utils.request_handler
+import vpsnet
 
 def get_cloudservers():
     """
     Get an list of all cloudservers assigned to account
     :return: array of json objects with cloudservers details
     """
-    return request_handler(name="get_all_cs")
+    return vpsnet.utils.request_handler(name="get_all_cs")
 
 
 def get_cs_property(cs_id):
@@ -17,7 +17,7 @@ def get_cs_property(cs_id):
     :param cs_id: ID of cloudserver assigned at control.vps.net
     :return: json object with cloudserver details
     """
-    return request_handler(cs_id=cs_id, name="get_cs_property")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="get_cs_property")
 
 
 def search(statment):
@@ -26,7 +26,7 @@ def search(statment):
     :param statment:
     :return: list of cloudserver jsons
     """
-    return request_handler(cs_id=statment, name="search")
+    return vpsnet.utils.request_handler(cs_id=statment, name="search")
 
 
 def create(data):
@@ -44,7 +44,7 @@ def create(data):
             "slices_required": nodes
     :return: json object with cloudserver details
     """
-    return request_handler(data=data, name="create_cs")
+    return vpsnet.utils.request_handler(data=data, name="create_cs")
 
 
 def create_instant(data):
@@ -55,7 +55,7 @@ def create_instant(data):
     data = {"instant":true, "country":1 }
     :return: json object with cloudserver details
     """
-    return request_handler(data=data, name="create_instant")
+    return vpsnet.utils.request_handler(data=data, name="create_instant")
 
 
 def reboot(cs_id):
@@ -64,7 +64,7 @@ def reboot(cs_id):
     :param cs_id:
     :return: json object with cloudserver details
     """
-    return request_handler(cs_id=cs_id, name="reboot_cs")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="reboot_cs")
 
 
 def reboot_recovery(cs_id):
@@ -74,7 +74,7 @@ def reboot_recovery(cs_id):
     :return: json object with cloudserver details
     """
     data = {'mode': 'recovery'}
-    return request_handler(cs_id=cs_id, name="reboot_cs", data=data)
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="reboot_cs", data=data)
 
 
 def start_up(cs_id):
@@ -83,7 +83,7 @@ def start_up(cs_id):
     :param cs_id:
     :return: cloudserver with id
     """
-    return request_handler(cs_id=cs_id, name="startup_cs")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="startup_cs")
 
 
 def power_off(cs_id):
@@ -92,7 +92,7 @@ def power_off(cs_id):
     :param cs_id:
     :return: cloudserver with id
     """
-    return request_handler(cs_id=cs_id, name="power_off_cs")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="power_off_cs")
 
 
 def rebuild(cs_id, data):
@@ -102,7 +102,7 @@ def rebuild(cs_id, data):
     data = { "virtual_machine" : {"system_template_id": 4302 } }
     :return: cloudserver with id
     """
-    return request_handler(cs_id=cs_id, name="rebuild_cs", data=data)
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="rebuild_cs", data=data)
 
 
 def rebuild_network(cs_id):
@@ -111,7 +111,7 @@ def rebuild_network(cs_id):
     :param cs_id:
     :return:
     """
-    return request_handler(cs_id=cs_id, name="rebuild_network")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="rebuild_network")
 
 
 def edit(cs_id, data):
@@ -121,7 +121,7 @@ def edit(cs_id, data):
     :param data:
     :return:
     """
-    return request_handler(cs_id=cs_id, name="edit_cs", data=data)
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="edit_cs", data=data)
 
 
 def delete(cs_id):
@@ -130,7 +130,7 @@ def delete(cs_id):
     :param cs_id: CloudServer Id
     :return:
     """
-    return request_handler(cs_id=cs_id, name="delete_cs")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="delete_cs")
 
 
 def reset_root_pass(cs_id):
@@ -139,4 +139,4 @@ def reset_root_pass(cs_id):
     :param cs_id: CloudServer Id
     :return: json with new password
     """
-    return request_handler(cs_id=cs_id, name="cs_reset_rpass")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="cs_reset_rpass")
