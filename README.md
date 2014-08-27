@@ -15,5 +15,5 @@ For help use
     
 # How vps.net.py works
 
-Please read to understand how vps.net.py[vps.net.md] works.
+Please read to understand how vps.net.py[](vps.net.md) works.
 
