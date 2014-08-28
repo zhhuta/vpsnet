@@ -1,5 +1,3 @@
-from vpsnet import api
-
 __author__ = 'zhhuta'
 
 import json
@@ -11,12 +9,9 @@ from .exceptions import VpsNetError
 import vpsnet.api
 
 
-
 def check_handler(handler):
     if not isinstance(handler, vpsnet.api.Handler):
         raise VpsNetError("No credentials set. Please set credentials vpsnet.init('email','password')")
-
-
 
 
 def request_handler(handler=vpsnet.api.DEFAULT_HANDLER, cs_id=None, name=None, data=None):
@@ -50,8 +45,10 @@ def request_handler(handler=vpsnet.api.DEFAULT_HANDLER, cs_id=None, name=None, d
         reply = requests.put(url, **params)
     elif handler.method[name]['method'] is "DELETE":
         reply = requests.delete(url, **params)
+        reply._content = '{"status":"deleted"}'
     else:
         raise VpsNetError("Unsuported metod")
+
     if reply.status_code != requests.codes.ok:
         reply.raise_for_status()
 

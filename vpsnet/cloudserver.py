@@ -3,6 +3,7 @@ __author__ = 'zhhuta'
 #from .utils import vpsnet.utils.request_handler
 import vpsnet
 
+
 def get_cloudservers():
     """
     Get an list of all cloudservers assigned to account
@@ -130,7 +131,7 @@ def delete(cs_id):
     :param cs_id: CloudServer Id
     :return:
     """
-    vpsnet.utils.request_handler(cs_id=cs_id, name="delete_cs")
+    return vpsnet.utils.request_handler(cs_id=cs_id, name="delete_cs")
 
 
 def reset_root_pass(cs_id):

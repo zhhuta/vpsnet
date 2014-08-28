@@ -191,7 +191,7 @@ def main():
     infr = create_infr()
     vps_clouds = get_clouds()
     # noinspection PyArgumentList
-    cloud, templ = get_templates( vps_clouds)
+    cloud, templ = get_templates(vps_clouds)
     infr = modify_infra_cfg(infr, cloud, templ)
     vms_db = init_db()
     build_infra(cred, infr, vms_db)

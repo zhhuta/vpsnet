@@ -10,14 +10,14 @@ def read(fname):
 
 setup(
     name="vpsnet",
-    version="0.0.2",
+    version="0.1.0",
     author="Vitaliy Zhhuta",
     author_email="vitaliyz@uk2group.com",
     description="Python wraper for vps.net api ",
     license=("BSD", "MIT"),
     keywords="vps.net api python",
     url="https://github.com/zhhuta/vpsnet",
-    packages=['vpsnet', 'tests'],
+    packages=['vpsnet'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
