@@ -5,8 +5,6 @@ import vpsnet.utils
 #from imp import reload
 
 
-
-
 def get():
     #reload(vpsnet.utils)
     """

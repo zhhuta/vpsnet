@@ -27,8 +27,6 @@ METHODS = {
     "vpsnet_profile": {"url": "/profile.api10json", "method": "GET"}
 }
 from . import HEADERS
-from .exceptions import VpsNetError
-
 
 
 class Handler(object):
