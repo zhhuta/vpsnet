@@ -139,7 +139,7 @@ server, DB server also we need some SVN sever and a to make things nice and tidy
 
 So to accomplish this we are going to build:
 
-* 1 x Web Server: Tomcat 2 Nodes
+* 2 x Web Server: Tomcat 2 Nodes
 * 1 x DB Server: MySQL 2 Nodes
 * 1 x SVN Server: git 1 Node
 * 1 x CI Server: jenkins 2 Node
